@@ -9,6 +9,8 @@ use yii\helpers\Html;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'guru' => $guru,
+        'pelajaran' => $pelajaran
     ]) ?>
 
 </div>

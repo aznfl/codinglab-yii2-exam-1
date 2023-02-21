@@ -52,21 +52,21 @@ return [
             return $model->jurusan->jurusan;
         }
     ],
-    [
-        'class' => 'kartik\grid\ActionColumn',
-        'header' => 'Aksi',
-        'template' => '{btn_aksi}',
-        'buttons' => [
-            "btn_aksi" => function ($action, $model, $key) {
-                return Html::a('Lihat Siswa', ['view-siswa', 'id' => $model->id,], [
-                    'class' => 'btn btn-success btn-block',
-                    'role' => 'modal-remote',
-                    'title' => 'Lihat',
-                    'data-toggle' => 'tooltip'
-                ]);
-            },
-        ]
-    ],
+    // [
+    //     'class' => 'kartik\grid\ActionColumn',
+    //     'header' => 'Aksi',
+    //     'template' => '{btn_aksi}',
+    //     'buttons' => [
+    //         "btn_aksi" => function ($action, $model, $key) {
+    //             return Html::a('Lihat Siswa', ['view-siswa', 'id' => $model->id,], [
+    //                 'class' => 'btn btn-success btn-block',
+    //                 'role' => 'modal-remote',
+    //                 'title' => 'Lihat',
+    //                 'data-toggle' => 'tooltip'
+    //             ]);
+    //         },
+    //     ]
+    // ],
     [
         'class' => 'kartik\grid\ActionColumn',
         'header' => 'Aksi',

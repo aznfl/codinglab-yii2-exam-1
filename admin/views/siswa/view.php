@@ -10,13 +10,21 @@ use yii\widgets\DetailView;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
+            // 'id',
             'nis',
             'nama',
             'tempat_lahir',
             'tanggal_lahir',
             'alamat:ntext',
-            'id_kelas',
+            // 'id_kelas',
+            [
+                // 'class' => '\kartik\grid\DataColumn',
+                'label' => 'Kelas',
+                'attribute' => 'id_kelas',
+                'value' => function ($model) {
+                    return $model->namaKelas->nama_kelas;
+                }
+            ],
             // 'id_user',
         ],
     ]) ?>

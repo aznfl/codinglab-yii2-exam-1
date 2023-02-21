@@ -209,7 +209,10 @@ class KelasController extends Controller
             } else if ($model->load($request->post()) && $model->save()) {
 
                 $model->id_kelas = $id;
-                // $model-> = $kelas;
+                $model->id_tahun_ajaran = $kelas->id_tahun_ajaran;
+                $model->nama_kelas = $kelas->nama_kelas;
+                $model->id_tingkat = $kelas->id_tingkat;
+                $model->id_wali_kelas = $kelas->id_wali_kelas;
                 $model->save();
                 $siswa = Siswa::find()->where(['id' => $model->id_siswa])->one();
                 $siswa->id_kelas = $id;

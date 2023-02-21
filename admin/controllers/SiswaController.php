@@ -7,6 +7,7 @@ use common\models\Siswa;
 use common\models\SiswaRwKelas;
 use common\models\AddAkun;
 use common\models\User;
+use common\models\AuthAssignment;
 use common\models\Kelas;
 use admin\models\SiswaSearch;
 use yii\web\Controller;
@@ -69,7 +70,7 @@ class SiswaController extends Controller
                     'dataProvider' => $dataProvider,
                 ]),
                 'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
-                Html::a('Tambah Siswa Ke Kelas', ['kelas/tambah-siswa', 'id' => $id], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
+                    Html::a('Tambah Siswa Ke Kelas', ['kelas/tambah-siswa', 'id' => $id], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
             ];
         } else {
             return $this->render('index', [
@@ -77,7 +78,6 @@ class SiswaController extends Controller
                 'dataProvider' => $dataProvider,
             ]);
         }
-
     }
 
 
@@ -164,7 +164,7 @@ class SiswaController extends Controller
                 // $rwKelas->id_siswa = $model->id;
                 // $rwKelas->id_kelas = $model->id_kelas;
                 // $rwKelas->save();
-                
+
                 return [
                     'forceReload' => '#crud-datatable-pjax',
                     'title' => "Tambah Siswa",
@@ -230,12 +230,17 @@ class SiswaController extends Controller
                 $siswa->id_user = $id_user;
                 $siswa->save();
 
+                $auth = new AuthAssignment();
+                $auth->user_id = $id_user;
+                $auth->item_name = 'Siswa';
+                $auth->save(false);
+
                 return [
                     'forceReload' => '#crud-datatable-pjax',
                     'title' => "Buat Akun Siswa",
                     'content' => '<span class="text-success">Create Siswa berhasil</span>',
                     'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"])
-                        // Html::a('Tambah Lagi', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote']),
+                    // Html::a('Tambah Lagi', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote']),
                 ];
             } else {
                 return [
@@ -276,12 +281,12 @@ class SiswaController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id,$id_siswa)
+    public function actionUpdate($id)
     {
         $request = Yii::$app->request;
         $model = $this->findModel($id);
 
-        $siswa = $this->findModel($id_siswa);
+        // $siswa = $this->findModel($id_siswa);
 
         if ($request->isAjax) {
             /*
@@ -298,9 +303,9 @@ class SiswaController extends Controller
                         Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
                 ];
             } else if ($model->load($request->post()) && $model->save()) {
-                $id_user = User::find()->where(['username'])->one()->id;
-                $siswa->id_user = $id_user;
-                $siswa->save();
+                // $id_user = User::find()->where(['username'])->one()->id;
+                // $siswa->id_user = $id_user;
+                // $siswa->save();
                 return [
                     'forceReload' => '#crud-datatable-pjax',
                     'title' => "Siswa ",

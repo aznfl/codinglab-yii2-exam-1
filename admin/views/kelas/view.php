@@ -10,8 +10,15 @@ use yii\widgets\DetailView;
         <?= DetailView::widget([
             'model' => $model,
             'attributes' => [
-                'id',
-                'id_tahun_ajaran',
+                // 'id',
+                [
+                    // 'class' => '\kartik\grid\DataColumn',
+                    'label' => 'Tahun Ajaran',
+                    'attribute' => 'id_tahun_ajaran',
+                    'value' => function ($model) {
+                        return $model->tahunAjaran->tahun_ajaran;
+                    }
+                ],
                 'nama_kelas',
                 [
                     // 'class' => '\kartik\grid\DataColumn',

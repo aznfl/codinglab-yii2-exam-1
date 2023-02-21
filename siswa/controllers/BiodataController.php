@@ -43,7 +43,10 @@ class BiodataController extends Controller
         $searchModel = new BiodataSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
+        $model = Siswa::find()->where(['id_user' => Yii::$app->user->id])->one();
+
+        return $this->render('view', [
+            'model' => $model,
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -91,8 +94,7 @@ class BiodataController extends Controller
                 'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
                     Html::a('Ubah', ['update'], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
             ];
-        } 
-        else {
+        } else {
             // return 'b';
             return $this->render('view', [
                 'model' => $this->findModel(),
@@ -188,24 +190,27 @@ class BiodataController extends Controller
                 ];
             } else if ($model->load($request->post()) && $model->save()) {
                 return [
-                    'forceReload' => '#crud-datatable-pjax',
-                    'title' => "Siswa ",
-                    'content' => $this->renderAjax('view', [
-                        'model' => $model,
-                    ]),
-                    'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
-                        Html::a('Ubah', ['update', 'id' => $model->id], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
+                    'forceClose' => true,
+                    'forceReload' => '#id-pjax',
+                    // 'pjax.reload' => '#id-pjax',
+                    // 'title' => "Siswa ",
+                    // 'content' => $this->renderAjax('view', [
+                    //     'model' => $model,
+                    // ]),
+                    // 'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"])
+                        // Html::a('Ubah', ['update', 'id' => $model->id], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
                 ];
-            } else {
-                return [
-                    'title' => "Ubah Siswa ",
-                    'content' => $this->renderAjax('update', [
-                        'model' => $model,
-                    ]),
-                    'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
-                        Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
-                ];
-            }
+            } 
+            // else {
+            //     return [
+            //         'title' => "Ubah Siswa ",
+            //         'content' => $this->renderAjax('update', [
+            //             'model' => $model,
+            //         ]),
+            //         'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
+            //             Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
+            //     ];
+            // }
         } else {
             /*
             *   Process for non-ajax request

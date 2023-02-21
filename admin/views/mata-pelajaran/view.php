@@ -10,7 +10,7 @@ use yii\widgets\DetailView;
         <?= DetailView::widget([
             'model' => $model,
             'attributes' => [
-                'id',
+                // 'id',
                 'mata_pelajaran',
                 [
                     // 'class' => '\kartik\grid\DataColumn',

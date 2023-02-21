@@ -12,6 +12,22 @@ return [
         'authManager' => [
             'class' => 'yii\rbac\DbManager', // only support DbManager
         ],
+        'assetManager' => [
+            'bundles' => [
+                'kartik\form\ActiveFormAsset' => [
+                    'bsDependencyEnabled' => true // do not load bootstrap assets for a specific asset bundle
+                ],
+                // 'yii\web\JqueryAsset' => [
+                //     'js' => []
+                // ],
+                'yii\bootstrap\BootstrapAsset' => [
+                    'css' => []
+                ],
+                'yii\bootstrap\BootstrapPluginAsset' => [
+                    'js' => []
+                ]
+            ]
+        ],
     ],
     'modules' => [
         'gii' => [
@@ -26,4 +42,7 @@ return [
             'class' => '\kartik\grid\Module'
         ],
     ],
+    'params' => [
+        'icon-framework' => \kartik\icons\Icon::FAS,  // Font Awesome Icon framework
+    ]
 ];

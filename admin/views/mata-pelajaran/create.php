@@ -13,6 +13,6 @@ use yii\helpers\Html;
         'kelas' => $kelas,
         'jurusan' => $jurusan,
         'guru' => $guru,
-        'modelGuru' => $modelGuru,
+        // 'modelGuru' => $modelGuru,
     ]) ?>
 </div>

@@ -115,7 +115,7 @@ class MataPelajaranController extends Controller
         $tingkatKelas = ArrayHelper::map(RefTingkatKelas::find()->all(), 'id', 'tingkat_kelas');
         $jurusan = ArrayHelper::map(RefJurusan::find()->all(), 'id', 'jurusan');
         $guruPelajaran = ArrayHelper::map(Guru::find()->all(), 'id', 'nama_guru');
-        $modelGuru = new GuruMataPelajaran();
+        // $modelGuru = new GuruMataPelajaran();
 
         if ($request->isAjax) {
             /*
@@ -127,7 +127,7 @@ class MataPelajaranController extends Controller
                     'title' => "Tambah MataPelajaran",
                     'content' => $this->renderAjax('create', [
                         'model' => $model,
-                        'modelGuru' => $modelGuru,
+                        // 'modelGuru' => $modelGuru,
                         'kelas' => $tingkatKelas,
                         'jurusan' => $jurusan,
                         'guru' => $guruPelajaran,
@@ -136,12 +136,12 @@ class MataPelajaranController extends Controller
                         Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
 
                 ];
-            } else if ($model->load($request->post()) && $model->save() && $modelGuru->load($request->post())) {
+            } else if ($model->load($request->post()) && $model->save()) {
 
                 // $modelGuru->id_guru = $guruPelajaran;
 
-                $modelGuru->id_mata_pelajaran = $model->id;
-                $modelGuru->save();
+                // $modelGuru->id_mata_pelajaran = $model->id;
+                // $modelGuru->save();
 
 
                 return [
@@ -157,7 +157,7 @@ class MataPelajaranController extends Controller
                     'title' => "Tambah MataPelajaran",
                     'content' => $this->renderAjax('create', [
                         'model' => $model,
-                        'modelGuru' => $modelGuru,
+                        // 'modelGuru' => $modelGuru,
                         'kelas' => $tingkatKelas,
                         'jurusan' => $jurusan,
                         'guru' => $guruPelajaran,
@@ -172,13 +172,13 @@ class MataPelajaranController extends Controller
             *   Process for non-ajax request
             */
             if ($model->load($request->post()) && $model->save() ) {
-                $modelGuru->id_mata_pelajaran = $model->id;
-                $modelGuru->save();
+                // $modelGuru->id_mata_pelajaran = $model->id;
+                // $modelGuru->save();
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
                 return $this->render('create', [
                     'model' => $model,
-                    'modelGuru' => $modelGuru,
+                    // 'modelGuru' => $modelGuru,
                     'kelas' => $tingkatKelas,
                     'jurusan' => $jurusan,
                     'guru' => $guruPelajaran,
@@ -268,6 +268,11 @@ class MataPelajaranController extends Controller
         $request = Yii::$app->request;
         $model = $this->findModel($id);
 
+        $tingkatKelas = ArrayHelper::map(RefTingkatKelas::find()->all(), 'id', 'tingkat_kelas');
+        $jurusan = ArrayHelper::map(RefJurusan::find()->all(), 'id', 'jurusan');
+        $guruPelajaran = ArrayHelper::map(Guru::find()->all(), 'id', 'nama_guru');
+        // $modelGuru = new GuruMataPelajaran();
+
         if ($request->isAjax) {
             /*
             *   Process for ajax request
@@ -278,6 +283,9 @@ class MataPelajaranController extends Controller
                     'title' => "Ubah MataPelajaran",
                     'content' => $this->renderAjax('update', [
                         'model' => $model,
+                        'kelas' => $tingkatKelas,
+                        'jurusan' => $jurusan,
+                        'guru' => $guruPelajaran,
                     ]),
                     'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
                         Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
@@ -288,6 +296,9 @@ class MataPelajaranController extends Controller
                     'title' => "MataPelajaran ",
                     'content' => $this->renderAjax('view', [
                         'model' => $model,
+                        'kelas' => $tingkatKelas,
+                        'jurusan' => $jurusan,
+                        'guru' => $guruPelajaran,
                     ]),
                     'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
                         Html::a('Ubah', ['update', 'id' => $model->id], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
@@ -297,6 +308,9 @@ class MataPelajaranController extends Controller
                     'title' => "Ubah MataPelajaran ",
                     'content' => $this->renderAjax('update', [
                         'model' => $model,
+                        'kelas' => $tingkatKelas,
+                        'jurusan' => $jurusan,
+                        'guru' => $guruPelajaran,
                     ]),
                     'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
                         Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
@@ -311,6 +325,9 @@ class MataPelajaranController extends Controller
             } else {
                 return $this->render('update', [
                     'model' => $model,
+                    'kelas' => $tingkatKelas,
+                    'jurusan' => $jurusan,
+                    'guru' => $guruPelajaran,
                 ]);
             }
         }

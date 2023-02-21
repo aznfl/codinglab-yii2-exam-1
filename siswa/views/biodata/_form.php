@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\bootstrap4\ActiveForm;
+use kartik\date\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Siswa */
@@ -19,7 +20,16 @@ use yii\bootstrap4\ActiveForm;
 
     <?= $form->field($model, 'tempat_lahir')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'tanggal_lahir')->textInput() ?>
+    <?= $form->field($model, 'tanggal_lahir')->widget(DatePicker::classname(), [
+        'value' => date('d-M-Y', strtotime('+2 days')),
+        'options' => ['placeholder' => 'Select issue date ...'],
+        'pluginOptions' => [
+            'format' => 'dd-M-yyyy',
+            'todayHighlight' => true
+        ],
+        'name' => 'check_issue_date',
+    ]);
+    ?>
 
     <?= $form->field($model, 'alamat')->textarea(['rows' => 6]) ?>
 

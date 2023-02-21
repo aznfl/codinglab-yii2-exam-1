@@ -10,5 +10,7 @@ use yii\helpers\Html;
 <div class="guru-mata-pelajaran-create">
     <?= $this->render('_form', [
         'model' => $model,
+        'guru' => $guru,
+        'pelajaran' => $pelajaran
     ]) ?>
 </div>

@@ -6,6 +6,7 @@ use Yii;
 use common\models\GuruMataPelajaran;
 use admin\models\GuruPelajaranSearch;
 use common\models\Guru;
+use common\models\MataPelajaran;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -89,6 +90,7 @@ class GuruPelajaranController extends Controller
         $model = new GuruMataPelajaran();
 
         $guru = ArrayHelper::map(Guru::find()->all(), 'id', 'nama_guru');
+        $pelajaran = ArrayHelper::map(MataPelajaran::find()->all(), 'id', 'mata_pelajaran');
 
         if ($request->isAjax) {
             /*
@@ -100,6 +102,8 @@ class GuruPelajaranController extends Controller
                     'title' => "Tambah GuruMataPelajaran",
                     'content' => $this->renderAjax('create', [
                         'model' => $model,
+                        'guru' => $guru,
+                        'pelajaran' => $pelajaran
                     ]),
                     'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
                         Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
@@ -119,6 +123,8 @@ class GuruPelajaranController extends Controller
                     'title' => "Tambah GuruMataPelajaran",
                     'content' => $this->renderAjax('create', [
                         'model' => $model,
+                        'guru' => $guru,
+                        'pelajaran' => $pelajaran
                     ]),
                     'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
                         Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
@@ -134,6 +140,8 @@ class GuruPelajaranController extends Controller
             } else {
                 return $this->render('create', [
                     'model' => $model,
+                    'guru' => $guru,
+                    'pelajaran' => $pelajaran
                 ]);
             }
         }
@@ -152,6 +160,9 @@ class GuruPelajaranController extends Controller
         $request = Yii::$app->request;
         $model = $this->findModel($id_guru, $id_mata_pelajaran);
 
+        $guru = ArrayHelper::map(Guru::find()->all(), 'id', 'nama_guru');
+        $pelajaran = ArrayHelper::map(MataPelajaran::find()->all(), 'id', 'mata_pelajaran');
+
         if ($request->isAjax) {
             /*
             *   Process for ajax request
@@ -162,6 +173,8 @@ class GuruPelajaranController extends Controller
                     'title' => "Ubah GuruMataPelajaran",
                     'content' => $this->renderAjax('update', [
                         'model' => $model,
+                        'guru' => $guru,
+                        'pelajaran' => $pelajaran
                     ]),
                     'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
                         Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
@@ -172,6 +185,8 @@ class GuruPelajaranController extends Controller
                     'title' => "GuruMataPelajaran ",
                     'content' => $this->renderAjax('view', [
                         'model' => $model,
+                        'guru' => $guru,
+                        'pelajaran' => $pelajaran
                     ]),
                     'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
                         Html::a('Ubah', ['update', 'id_guru' => $model->id_guru, 'id_mata_pelajaran' => $model->id_mata_pelajaran], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
@@ -181,6 +196,8 @@ class GuruPelajaranController extends Controller
                     'title' => "Ubah GuruMataPelajaran ",
                     'content' => $this->renderAjax('update', [
                         'model' => $model,
+                        'guru' => $guru,
+                        'pelajaran' => $pelajaran
                     ]),
                     'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
                         Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
@@ -195,6 +212,8 @@ class GuruPelajaranController extends Controller
             } else {
                 return $this->render('update', [
                     'model' => $model,
+                    'guru' => $guru,
+                    'pelajaran' => $pelajaran
                 ]);
             }
         }
