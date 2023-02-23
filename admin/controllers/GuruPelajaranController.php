@@ -40,14 +40,19 @@ class GuruPelajaranController extends Controller
      * Lists all GuruMataPelajaran models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($id_mapel)
     {
         $searchModel = new GuruPelajaranSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andFilterWhere(['id_mata_pelajaran' => $id_mapel]);
+
+        $mapel = MataPelajaran::find()->where(['id' => $id_mapel])->one();
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'mapel' => $mapel,
+            'id_mapel' => $id_mapel
         ]);
     }
 
@@ -84,66 +89,34 @@ class GuruPelajaranController extends Controller
      * and for non-ajax request if creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id_guru, $id_mapel)
     {
         $request = Yii::$app->request;
         $model = new GuruMataPelajaran();
 
-        $guru = ArrayHelper::map(Guru::find()->all(), 'id', 'nama_guru');
-        $pelajaran = ArrayHelper::map(MataPelajaran::find()->all(), 'id', 'mata_pelajaran');
+        // $guru = ArrayHelper::map(Guru::find()->all(), 'id', 'nama_guru');
+        // $pelajaran = ArrayHelper::map(MataPelajaran::find()->all(), 'id', 'mata_pelajaran');
+
 
         if ($request->isAjax) {
             /*
             *   Process for ajax request
             */
+            $model->id_mata_pelajaran = $id_mapel;
+            $model->id_guru = $id_guru;
+            $model->save();
+            
             Yii::$app->response->format = Response::FORMAT_JSON;
-            if ($request->isGet) {
-                return [
-                    'title' => "Tambah GuruMataPelajaran",
-                    'content' => $this->renderAjax('create', [
-                        'model' => $model,
-                        'guru' => $guru,
-                        'pelajaran' => $pelajaran
-                    ]),
-                    'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
-                        Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
-
-                ];
-            } else if ($model->load($request->post()) && $model->save()) {
-                return [
-                    'forceReload' => '#crud-datatable-pjax',
-                    'title' => "Tambah GuruMataPelajaran",
-                    'content' => '<span class="text-success">Create GuruMataPelajaran berhasil</span>',
-                    'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
-                        Html::a('Tambah Lagi', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
-
-                ];
-            } else {
-                return [
-                    'title' => "Tambah GuruMataPelajaran",
-                    'content' => $this->renderAjax('create', [
-                        'model' => $model,
-                        'guru' => $guru,
-                        'pelajaran' => $pelajaran
-                    ]),
-                    'footer' => Html::button('Tutup', ['class' => 'btn btn-default float-left', 'data-dismiss' => "modal"]) .
-                        Html::button('Simpan', ['class' => 'btn btn-primary', 'type' => "submit"])
-
-                ];
-            }
+            return [
+                'forceClose' => true,
+                'forceReload' => '#crud-datatable-pjax',
+                // 'content' => $this->redirect('guru/index2')
+            ];
         } else {
             /*
             *   Process for non-ajax request
             */
-            if ($model->load($request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id_guru' => $model->id_guru, 'id_mata_pelajaran' => $model->id_mata_pelajaran]);
-            } else {
-                return $this->render('create', [
-                    'model' => $model,
-                    'guru' => $guru,
-                    'pelajaran' => $pelajaran
-                ]);
-            }
+            return $this->redirect(['index']);
         }
     }
 

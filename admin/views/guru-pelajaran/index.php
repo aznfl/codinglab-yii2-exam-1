@@ -26,6 +26,9 @@ CrudAsset::register($this);
         <div class="card">
             <div class="card-body">
                 <div id="ajaxCrudDatatable">
+                <h2>Mata Pelajaran : <?= $mapel->mata_pelajaran ?></h2>
+                <h2>Kelas : <?= $mapel->tingkatKelas->tingkat_kelas ?></h2>
+                <h2>Jurusan : <?= $mapel->jurusan->jurusan ?></h2>
                     <div id="table-responsive">
                         <?= GridView::widget([
                             'id' => 'crud-datatable',
@@ -53,7 +56,7 @@ CrudAsset::register($this);
                                 // 'heading' => '<i class="glyphicon glyphicon-list"></i> Guru Mata Pelajarans listing',
                                 'before' => Html::a(
                                     'Tambah Guru Mata Pelajaran',
-                                    ['create'],
+                                    ['guru/index2', 'id_mapel' => $id_mapel],
                                     ['role' => 'modal-remote', 'title' => 'Create new Guru Mata Pelajarans', 'class' => 'btn btn-info']
                                 ),
                                 // 'after'=>BulkButtonWidget::widget([

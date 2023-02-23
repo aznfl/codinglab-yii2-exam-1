@@ -20,7 +20,6 @@ use yii\bootstrap4\Modal;
 use kartik\grid\GridView;
 use johnitvn\ajaxcrud\CrudAsset;
 use johnitvn\ajaxcrud\BulkButtonWidget;
-use kartik\icons\Icon;
 
 /* @var $this yii\web\View */
 <?= !empty($generator->searchModelClass) ? "/* @var \$searchModel " . ltrim($generator->searchModelClass, '\\') . " */\n" : '' ?>
@@ -29,18 +28,16 @@ use kartik\icons\Icon;
 $this->title = <?= $generator->generateString(Inflector::pluralize(Inflector::camel2words(StringHelper::basename($generator->modelClass)))) ?>;
 $this->params['breadcrumbs'][] = $this->title;
 
-Icon::map($this, Icon::FAS);
-
 CrudAsset::register($this);
 
 ?>
 <!-- <div class="element-wrapper">
-    <h6 class="element-header">
-        <?php
-        //  Inflector::pluralize(Inflector::camel2words(StringHelper::basename($generator->modelClass))) 
-        ?>
-    </h6>
-    <div class="element-box"> -->
+<h6 class="element-header">
+<?php
+//  Inflector::pluralize(Inflector::camel2words(StringHelper::basename($generator->modelClass))) 
+?>
+</h6>
+<div class="element-box"> -->
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -96,7 +93,7 @@ CrudAsset::register($this);
 </div>
 </div>
 <?= '<?php Modal::begin([
-    "id"=>"ajaxCrudModal",
-    "footer"=>"",// always need it for jquery plugin
+"id"=>"ajaxCrudModal",
+"footer"=>"",// always need it for jquery plugin
 ])?>' . "\n" ?>
 <?= '<?php Modal::end(); ?>' ?>

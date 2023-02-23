@@ -46,7 +46,7 @@ AppAsset::register($this);
             // ['label' => 'Pemetaan Siswa', 'url' => ['/murid-kelas/index']],
             ['label' => 'Guru', 'url' => ['/guru/index']],
             ['label' => 'Mata Pelajaran', 'url' => ['/mata-pelajaran/index']],
-            ['label' => 'Guru Mata Pelajaran', 'url' => ['/guru-pelajaran/index']],
+            // ['label' => 'Guru Mata Pelajaran', 'url' => ['/guru-pelajaran/index']],
         ];
         if (Yii::$app->user->isGuest) {
             $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];

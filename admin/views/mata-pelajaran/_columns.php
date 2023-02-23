@@ -44,7 +44,29 @@ return [
             return $model->jurusan->jurusan;
         }
     ],
-
+    [
+        'class' => 'kartik\grid\ActionColumn',
+        'header' => 'Aksi',
+        'template' => '{btn_aksi}',
+        'buttons' => [
+            "btn_aksi" => function ($action, $model, $key) {
+                return Html::a('Lihat Guru', ['guru-pelajaran/index', 'id_mapel' => $model->id], [
+                    // 'viewOptions' => ['title' => 'Lihat', 'data-toggle' => 'tooltip'],
+                    'class' => 'btn btn-warning btn-block',
+                    'data-pjax' => 0, 
+                    'target' => '_blank',
+                    'title' => 'Lihat',
+                    // 'data-toggle' => 'tooltip',
+                    // 'linkOptions'=> [
+                    //     'target' => "_blank"
+                    // ]
+                ]);
+            }
+        ],
+        // 'buttonOptions' => [
+        //     'target' => "_blank"
+        // ]
+    ],
     [
         'class' => 'kartik\grid\ActionColumn',
         'dropdown' => false,
