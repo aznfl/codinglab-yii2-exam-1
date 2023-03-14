@@ -29,7 +29,7 @@ return [
     ],
     [
         'class' => '\kartik\grid\DataColumn',
-        'attribute' => 'id_status_wali',
+        'attribute' => 'status_wali',
         'label' => 'Status Wali',
         'value' => 'refStatusWali.status_wali',
     ],

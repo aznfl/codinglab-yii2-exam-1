@@ -42,7 +42,7 @@ return [
     // ],
     [
         'class' => '\kartik\grid\DataColumn',
-        'header' => 'Nama Kelas',
+        'label' => 'Nama Kelas',
         'attribute' => 'id_kelas',
         'value' => function ($model) {
             return $model->namaKelas->nama_kelas ?? '-';

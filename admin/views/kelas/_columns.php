@@ -18,7 +18,7 @@ return [
     // ],
     [
         'class' => '\kartik\grid\DataColumn',
-        'header' => 'Tahun Ajaran',
+        'label' => 'Tahun Ajaran',
         'attribute' => 'id_tahun_ajaran',
         'value' => function ($model) {
             return $model->tahunAjaran->tahun_ajaran;
@@ -30,7 +30,7 @@ return [
     ],
     [
         'class' => '\kartik\grid\DataColumn',
-        'header' => 'Tingkat Kelas',
+        'label' => 'Tingkat Kelas',
         'attribute' => 'id_tingkat',
         'value' => function ($model) {
             return $model->tingkatKelas->tingkat_kelas;
@@ -38,7 +38,7 @@ return [
     ],
     [
         'class' => '\kartik\grid\DataColumn',
-        'header' => 'Wali Kelas',
+        'label' => 'Wali Kelas',
         'attribute' => 'id_wali_kelas',
         'value' => function ($model) {
             return $model->waliKelas->nama_guru;
@@ -46,7 +46,7 @@ return [
     ],
     [
         'class' => '\kartik\grid\DataColumn',
-        'header' => 'Jurusan Kelas',
+        'label' => 'Jurusan Kelas',
         'attribute' => 'id_jurusan',
         'value' => function ($model) {
             return $model->jurusan->jurusan;

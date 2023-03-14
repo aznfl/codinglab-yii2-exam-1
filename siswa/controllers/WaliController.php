@@ -52,9 +52,9 @@ class WaliController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         if ($waliSiswa) {
-            $dataProvider->query->andFilterWhere(['id' => $waliSiswa]);
+            $dataProvider->query->andFilterWhere(['wali.id' => $waliSiswa]);
         } else {
-            $dataProvider->query->andFilterWhere(['id' => '0']);
+            $dataProvider->query->andFilterWhere(['wali.id' => '0']);
         }
 
         return $this->render('index', [

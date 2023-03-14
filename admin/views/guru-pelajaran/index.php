@@ -56,7 +56,7 @@ CrudAsset::register($this);
                                 // 'heading' => '<i class="glyphicon glyphicon-list"></i> Guru Mata Pelajarans listing',
                                 'before' => Html::a(
                                     'Tambah Guru Mata Pelajaran',
-                                    ['guru/index2', 'id_mapel' => $id_mapel],
+                                    ['list-guru', 'id_mapel' => $id_mapel],
                                     ['role' => 'modal-remote', 'title' => 'Create new Guru Mata Pelajarans', 'class' => 'btn btn-info']
                                 ),
                                 // 'after'=>BulkButtonWidget::widget([

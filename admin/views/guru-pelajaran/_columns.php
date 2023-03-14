@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Url;
+use yii\helpers\Html;
 
 return [
     //[
@@ -14,7 +15,7 @@ return [
     [
         'class' => '\kartik\grid\DataColumn',
         'label' => 'Nama Guru',
-        'attribute' => 'id_guru',
+        'attribute' => 'cari_guru',
         'value' => 'namaGuru.nama_guru',
     ],
     // [
@@ -35,6 +36,36 @@ return [
     //     'attribute' => 'id_mata_pelajaran',
     //     'value' => 'mataPelajaran.jurusan.jurusan',
     // ],
+    [
+        'class' => 'kartik\grid\ActionColumn',
+        'header' => 'Aksi',
+        'template' => '{btn_aksi}',
+        'buttons' => [
+            "btn_aksi" => function ($action, $model, $key) {
+                return Html::a('Hapus', ['delete', 'id_guru' => $model->id_guru, 'id_mapel' => $model->id_mata_pelajaran], [
+                    'class' => 'btn btn-danger btn-block',
+                    // 'data-method' => 'POST',
+                    // 'role' => 'modal-remote',
+                    'title' => 'Hapus',
+                    'data-toggle' => 'tooltip',
+                    'role' => 'modal-remote', 'title' => 'Hapus',
+                    'data-confirm' => false, 'data-method' => false, // for overide yii data api
+                    'data-request-method' => 'post',
+                    // 'data-toggle' => 'tooltip',
+                    'data-confirm-title' => 'Peringatan',
+                    'data-confirm-message' => 'Apakah anda yakin ingin menghapus data ini?'
+                ]);
+            },
+        ],
+        'deleteOptions' => [
+            'role' => 'modal-remote', 'title' => 'Hapus',
+            'data-confirm' => false, 'data-method' => false, // for overide yii data api
+            'data-request-method' => 'post',
+            'data-toggle' => 'tooltip',
+            'data-confirm-title' => 'Peringatan',
+            'data-confirm-message' => 'Apakah anda yakin ingin menghapus data ini?'
+        ],
+    ],
     // [
     //     'class' => 'kartik\grid\ActionColumn',
     //     'dropdown' => false,

@@ -30,16 +30,16 @@ return [
     ],
     [
         'class' => '\kartik\grid\DataColumn',
-        'header' => 'Tingkat Kelas',
-        'attribute' => 'id_tingkat_kelas',
+        'label' => 'Tingkat Kelas',
+        'attribute' => 'tingkat_kelas',
         'value' => function ($model) {
             return $model->tingkatKelas->tingkat_kelas;
         }
     ],
     [
         'class' => '\kartik\grid\DataColumn',
-        'header' => 'Jurusan Kelas',
-        'attribute' => 'id_jurusan',
+        'label' => 'Jurusan Kelas',
+        'attribute' => 'jurusan',
         'value' => function ($model) {
             return $model->jurusan->jurusan;
         }
@@ -53,7 +53,7 @@ return [
                 return Html::a('Lihat Guru', ['guru-pelajaran/index', 'id_mapel' => $model->id], [
                     // 'viewOptions' => ['title' => 'Lihat', 'data-toggle' => 'tooltip'],
                     'class' => 'btn btn-warning btn-block',
-                    'data-pjax' => 0, 
+                    'data-pjax' => 0,
                     'target' => '_blank',
                     'title' => 'Lihat',
                     // 'data-toggle' => 'tooltip',

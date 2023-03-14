@@ -5,6 +5,7 @@ namespace admin\controllers;
 use Yii;
 use common\models\GuruMataPelajaran;
 use admin\models\GuruPelajaranSearch;
+use admin\models\GuruSearch;
 use common\models\Guru;
 use common\models\MataPelajaran;
 use yii\web\Controller;
@@ -83,6 +84,31 @@ class GuruPelajaranController extends Controller
         }
     }
 
+    public function actionListGuru($id_mapel)
+    {
+        $searchModel = new GuruSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $request = Yii::$app->request;
+        if ($request->isAjax) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return [
+                'title' => "Pilih Guru",
+                'content' => $this->renderAjax('pilih-guru', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                    'id_mapel' => $id_mapel,
+                ]),
+            ];
+        } else {
+            return $this->render('pilih-guru', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+                'id_mapel' => $id_mapel,
+            ]);
+        }
+    }
+    
     /**
      * Creates a new GuruMataPelajaran model.
      * For ajax request will return json object
@@ -91,32 +117,36 @@ class GuruPelajaranController extends Controller
      */
     public function actionCreate($id_guru, $id_mapel)
     {
+        $searchModel = new GuruSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
         $request = Yii::$app->request;
         $model = new GuruMataPelajaran();
-
-        // $guru = ArrayHelper::map(Guru::find()->all(), 'id', 'nama_guru');
-        // $pelajaran = ArrayHelper::map(MataPelajaran::find()->all(), 'id', 'mata_pelajaran');
-
+        
+        $model->id_mata_pelajaran = $id_mapel;
+        $model->id_guru = $id_guru;
+        $model->setStatusGuruMapel();
 
         if ($request->isAjax) {
             /*
             *   Process for ajax request
             */
-            $model->id_mata_pelajaran = $id_mapel;
-            $model->id_guru = $id_guru;
-            $model->save();
             
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                'forceClose' => true,
+                // 'forceClose' => true,
                 'forceReload' => '#crud-datatable-pjax',
-                // 'content' => $this->redirect('guru/index2')
+                'content' => $this->renderAjax('pilih-guru', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                    'id_mapel' => $id_mapel,
+                ]),
             ];
         } else {
             /*
             *   Process for non-ajax request
             */
-            return $this->redirect(['index']);
+            return $this->redirect(['list-guru','id_mapel' => $id_mapel]);
         }
     }
 
@@ -200,10 +230,10 @@ class GuruPelajaranController extends Controller
      * @param integer $id_mata_pelajaran
      * @return mixed
      */
-    public function actionDelete($id_guru, $id_mata_pelajaran)
+    public function actionDelete($id_guru, $id_mapel)
     {
         $request = Yii::$app->request;
-        $this->findModel($id_guru, $id_mata_pelajaran)->delete();
+        $this->findModel($id_guru, $id_mapel)->delete();
 
         if ($request->isAjax) {
             /*
@@ -215,7 +245,7 @@ class GuruPelajaranController extends Controller
             /*
             *   Process for non-ajax request
             */
-            return $this->redirect(['index']);
+            return $this->redirect(['index', 'id_mapel' => $id_mapel]);
         }
     }
 

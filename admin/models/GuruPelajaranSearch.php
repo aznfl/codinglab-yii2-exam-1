@@ -12,6 +12,9 @@ use common\models\GuruMataPelajaran;
  */
 class GuruPelajaranSearch extends GuruMataPelajaran
 {
+
+    public $cari_guru;
+
     /**
      * @inheritdoc
      */
@@ -19,6 +22,7 @@ class GuruPelajaranSearch extends GuruMataPelajaran
     {
         return [
             [['id_guru', 'id_mata_pelajaran'], 'integer'],
+            [['cari_guru'], 'safe'],
         ];
     }
 
@@ -42,6 +46,8 @@ class GuruPelajaranSearch extends GuruMataPelajaran
     {
         $query = GuruMataPelajaran::find();
 
+        $query->joinWith('namaGuru');
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -56,8 +62,11 @@ class GuruPelajaranSearch extends GuruMataPelajaran
 
         $query->andFilterWhere([
             'id_guru' => $this->id_guru,
+            // 'nama_guru' => $this->nama_guru,
             'id_mata_pelajaran' => $this->id_mata_pelajaran,
         ]);
+
+        $query->andFilterWhere(['like', 'LOWER(nama_guru)', strtolower($this->cari_guru)]);
 
         return $dataProvider;
     }

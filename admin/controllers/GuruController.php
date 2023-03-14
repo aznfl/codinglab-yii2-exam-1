@@ -52,31 +52,6 @@ class GuruController extends Controller
         ]);
     }
 
-    public function actionIndex2($id_mapel)
-    {
-        $searchModel = new GuruSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        $request = Yii::$app->request;
-        if ($request->isAjax) {
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            return [
-                'title' => "Pilih Guru",
-                'content' => $this->renderAjax('pilih-guru', [
-                    'searchModel' => $searchModel,
-                    'dataProvider' => $dataProvider,
-                    'id_mapel' => $id_mapel,
-                ]),
-            ];
-        } else {
-            return $this->render('pilih-guru', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
-                'id_mapel' => $id_mapel,
-            ]);
-        }
-    }
-
     /**
      * Displays a single Guru model.
      * @param integer $id
